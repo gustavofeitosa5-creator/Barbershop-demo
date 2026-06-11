@@ -1,0 +1,819 @@
+/* ============================================================
+   RESPONSIVE DESIGN - Mobile First Approach
+   Breakpoints:
+   - Mobile: < 480px
+   - Tablet Small: 480px - 768px
+   - Tablet Medium: 769px - 1024px
+   - Desktop: 1025px - 1439px
+   - Desktop Large: ≥ 1440px
+   ============================================================ */
+
+/* ============================================================
+   EXTRA SMALL DEVICES (< 480px - Mobile Phones)
+   ============================================================ */
+@media (max-width: 479px) {
+  :root {
+    --navbar-height: 56px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  /* Layout */
+  .container,
+  .page {
+    padding: 0 12px;
+  }
+
+  .page {
+    padding: 20px 12px;
+  }
+
+  /* Navbar */
+  .navbar-inner {
+    padding: 0 12px;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+    gap: 6px;
+  }
+
+  .navbar-brand .brand-icon {
+    font-size: 1.2rem;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-menu {
+    top: var(--navbar-height);
+  }
+
+  .mobile-menu .nav-link {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  /* Typography */
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .page-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 1.4rem !important;
+  }
+
+  h2 {
+    font-size: 1.2rem !important;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 9px 16px;
+    font-size: 0.85rem;
+  }
+
+  .btn-lg {
+    padding: 11px 20px;
+    font-size: 0.9rem;
+  }
+
+  .btn-sm {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+
+  /* Forms */
+  .form-control {
+    padding: 9px 12px;
+    font-size: 0.9rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .form-label {
+    font-size: 0.82rem;
+  }
+
+  /* Cards */
+  .card {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .card-header {
+    margin-bottom: 12px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .metric-value {
+    font-size: 1.8rem;
+  }
+
+  .metric-card {
+    padding: 16px;
+  }
+
+  /* Quick Actions */
+  .quick-actions {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .quick-action-btn {
+    padding: 14px;
+    font-size: 0.85rem;
+  }
+
+  /* Services Grid */
+  .servicos-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .servico-card {
+    padding: 16px;
+  }
+
+  .servico-icon {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .servico-nome {
+    font-size: 1rem;
+  }
+
+  .servico-preco {
+    font-size: 1.1rem;
+  }
+
+  /* Tables */
+  .table-wrapper {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    margin: 0 -12px;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+  th,
+  td {
+    padding: 10px 8px;
+  }
+
+  .td-actions {
+    gap: 4px;
+  }
+
+  .td-actions .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+
+  /* Auth Page */
+  .auth-page {
+    padding: 16px;
+    min-height: calc(100vh - var(--navbar-height));
+  }
+
+  .auth-container {
+    max-width: 100%;
+  }
+
+  .auth-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .auth-logo h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 60px 12px 40px;
+    min-height: auto;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-inner > div:first-child {
+    margin-bottom: 32px;
+  }
+
+  .hero-title {
+    font-size: 1.6rem !important;
+  }
+
+  .hero-desc {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-actions {
+    gap: 10px;
+    flex-direction: column;
+  }
+
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+  .hero-visual {
+    display: none;
+  }
+
+  /* Filters */
+  .filters-bar {
+    flex-direction: column;
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .filters-bar .form-group {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .filters-bar .btn {
+    width: auto;
+  }
+
+  /* Inline Forms */
+  .inline-form {
+    padding: 16px;
+  }
+
+  .inline-form .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Alerts */
+  .alert {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    gap: 8px;
+  }
+
+  /* Badges */
+  .badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+  }
+
+  /* Spinner */
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border-width: 2px;
+  }
+}
+
+/* ============================================================
+   SMALL DEVICES (480px - 768px - Tablets)
+   ============================================================ */
+@media (min-width: 480px) and (max-width: 768px) {
+  :root {
+    --navbar-height: 60px;
+  }
+
+  body {
+    font-size: 14.5px;
+  }
+
+  .container,
+  .page {
+    padding: 0 16px;
+  }
+
+  .page {
+    padding: 32px 16px;
+  }
+
+  /* Navbar */
+  .navbar-inner {
+    padding: 0 16px;
+  }
+
+  .navbar-brand {
+    font-size: 1.15rem;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 0.87rem;
+  }
+
+  /* Typography */
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .page-subtitle {
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: 1.6rem !important;
+  }
+
+  h2 {
+    font-size: 1.3rem !important;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 10px 18px;
+    font-size: 0.87rem;
+  }
+
+  .btn-full {
+    width: 100%;
+  }
+
+  /* Forms */
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .form-row.single {
+    grid-template-columns: 1fr;
+  }
+
+  /* Cards */
+  .card {
+    padding: 18px;
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .metric-value {
+    font-size: 2rem;
+  }
+
+  .metric-card {
+    padding: 18px;
+  }
+
+  /* Quick Actions */
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  /* Services Grid */
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .servico-card {
+    padding: 18px;
+  }
+
+  /* Tables */
+  table {
+    font-size: 0.85rem;
+  }
+
+  th,
+  td {
+    padding: 10px 12px;
+  }
+
+  .td-actions {
+    flex-wrap: wrap;
+  }
+
+  /* Auth Page */
+  .auth-page {
+    padding: 32px 16px;
+  }
+
+  .auth-card {
+    padding: 28px;
+  }
+
+  .auth-logo h1 {
+    font-size: 1.8rem;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 80px 16px 50px;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem !important;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .hero-actions {
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  /* Filters */
+  .filters-bar {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  .filters-bar .form-group {
+    min-width: 140px;
+  }
+
+  /* Inline Forms */
+  .inline-form {
+    padding: 18px;
+  }
+}
+
+/* ============================================================
+   MEDIUM DEVICES (769px - 1024px - Tablets & Small Desktops)
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container,
+  .page {
+    padding: 0 24px;
+  }
+
+  .page {
+    padding: 36px 24px;
+  }
+
+  .navbar-inner {
+    padding: 0 24px;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 2px;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 0.88rem;
+  }
+
+  /* Typography */
+  .page-title {
+    font-size: 2rem;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  /* Quick Actions */
+  .quick-actions {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  /* Services Grid */
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 18px;
+  }
+
+  /* Forms */
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Auth Page */
+  .auth-page {
+    padding: 40px 24px;
+  }
+
+  .auth-card {
+    padding: 32px;
+  }
+
+  /* Hero Section */
+  .hero-inner {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    width: auto;
+  }
+
+  /* Filters */
+  .filters-bar {
+    flex-wrap: wrap;
+    padding: 18px;
+  }
+
+  .filters-bar .form-group {
+    min-width: 160px;
+  }
+}
+
+/* ============================================================
+   LARGE DEVICES (> 1024px - Desktop & Large Monitors)
+   ============================================================ */
+@media (min-width: 1025px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container,
+  .page {
+    padding: 0 20px;
+  }
+
+  .page {
+    padding: 40px 20px;
+  }
+
+  .navbar-inner {
+    padding: 0 20px;
+    max-width: 1400px;
+  }
+
+  .navbar-links {
+    display: flex;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  /* Quick Actions */
+  .quick-actions {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  /* Services Grid */
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  /* Hero Section */
+  .hero-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .hero-visual {
+    display: block;
+  }
+
+  .hero-actions {
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    width: auto;
+  }
+
+  /* Forms */
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-row.three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .form-row.four {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ============================================================
+   EXTRA LARGE DEVICES (> 1440px - High Resolution Monitors)
+   ============================================================ */
+@media (min-width: 1440px) {
+  .container,
+  .page {
+    max-width: 1400px;
+    padding: 0 40px;
+  }
+
+  .navbar-inner {
+    max-width: 1400px;
+    padding: 0 40px;
+  }
+
+  .page-title {
+    font-size: 2.4rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+  }
+
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .hero-inner {
+    gap: 80px;
+  }
+}
+
+/* ============================================================
+   LANDSCAPE ORIENTATION (for tablets/phones in landscape)
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    padding: 40px 20px;
+    min-height: auto;
+  }
+
+  .page {
+    padding: 20px;
+  }
+
+  .navbar-brand .brand-icon {
+    display: none;
+  }
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+  .navbar,
+  .mobile-menu,
+  .hamburger,
+  .btn,
+  .form-control,
+  .form-group {
+    display: none;
+  }
+
+  .page {
+    padding: 0;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .card,
+  .servico-card,
+  .metric-card {
+    border: 1px solid #000;
+    page-break-inside: avoid;
+  }
+}
+
+/* ============================================================
+   PREFERS REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   HIGH CONTRAST MODE
+   ============================================================ */
+@media (prefers-contrast: more) {
+  :root {
+    --border: #555;
+    --border-light: #666;
+    --text-secondary: #bbb;
+  }
+
+  .btn,
+  .card,
+  .form-control {
+    border-width: 2px;
+  }
+}
+
+/* ============================================================
+   DARK MODE & LIGHT MODE DETECTION
+   ============================================================ */
+@media (prefers-color-scheme: light) {
+  /* Add light theme variables if needed */
+}
+
+/* ============================================================
+   HORIZONTAL SCROLL FOR VERY SMALL SCREENS
+   ============================================================ */
+@media (max-width: 360px) {
+  .metrics-grid,
+  .quick-actions,
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    overflow-x: auto;
+  }
+
+  .page {
+    padding: 16px 8px;
+  }
+}

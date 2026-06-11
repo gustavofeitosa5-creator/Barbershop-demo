@@ -1,0 +1,645 @@
+/* ============================================================
+   RESPONSIVE DESIGN - Otimizado e Simplificado
+   Mobile First Approach
+   ============================================================ */
+
+/* ============================================================
+   MOBILE (< 480px)
+   ============================================================ */
+@media (max-width: 479px) {
+  :root {
+    --navbar-height: 56px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .container,
+  .page {
+    padding: 0 12px;
+    max-width: 100% !important;
+  }
+
+  .page {
+    padding: 20px 12px;
+  }
+
+  /* Navbar Mobile */
+  .navbar-inner {
+    padding: 0 12px;
+    max-width: 100% !important;
+  }
+
+  .navbar-links {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: flex !important;
+  }
+
+  /* Typography */
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.4rem !important;
+  }
+
+  h2 {
+    font-size: 1.2rem !important;
+  }
+
+  /* Buttons - sem forçar width */
+  .btn {
+    padding: 9px 14px;
+    font-size: 0.85rem;
+  }
+
+  /* Cards */
+  .card {
+    padding: 14px;
+    border-radius: 8px;
+  }
+
+  /* Grids - 1 coluna */
+  .metrics-grid,
+  .quick-actions,
+  .servicos-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Forms - 1 coluna */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Tables */
+  .table-wrapper {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    margin: 0 -12px;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+  th,
+  td {
+    padding: 8px 10px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 60px 12px 40px;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 1.6rem !important;
+  }
+
+  /* Hero buttons em coluna */
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  /* Hero features - 1 coluna */
+  .hero-features {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-top: 30px !important;
+  }
+
+  .feature-item {
+    padding: 20px 16px !important;
+  }
+
+  .feature-icon {
+    font-size: 2rem !important;
+  }
+
+  .feature-title {
+    font-size: 1rem !important;
+  }
+
+  .feature-desc {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* ============================================================
+   TABLET PEQUENO (480px - 768px)
+   ============================================================ */
+@media (min-width: 480px) and (max-width: 768px) {
+  :root {
+    --navbar-height: 60px;
+  }
+
+  body {
+    font-size: 14.5px;
+  }
+
+  .container,
+  .page {
+    padding: 0 16px;
+    max-width: 100% !important;
+  }
+
+  .page {
+    padding: 28px 16px;
+  }
+
+  .navbar-inner {
+    padding: 0 16px;
+    max-width: 100% !important;
+  }
+
+  .navbar-links {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: flex !important;
+  }
+
+  .page-title {
+    font-size: 1.7rem;
+  }
+
+  h1 {
+    font-size: 1.5rem !important;
+  }
+
+  h2 {
+    font-size: 1.25rem !important;
+  }
+
+  /* Grids - 2 colunas */
+  .metrics-grid,
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+
+  /* Forms - 2 colunas */
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .form-row.single {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 70px 16px 45px;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  /* Hero features - 2 colunas */
+  .hero-features {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 40px;
+  }
+
+  .feature-item {
+    padding: 22px 18px;
+  }
+
+  .feature-icon {
+    font-size: 2.2rem;
+  }
+
+  .feature-title {
+    font-size: 1.05rem;
+  }
+
+  .auth-card {
+    padding: 24px;
+  }
+}
+
+/* ============================================================
+   TABLET MÉDIO (769px - 1024px)
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container,
+  .page {
+    padding: 0 20px;
+    max-width: 100% !important;
+  }
+
+  .page {
+    padding: 32px 20px;
+  }
+
+  .navbar-inner {
+    padding: 0 20px;
+    max-width: 100% !important;
+  }
+
+  .navbar-links {
+    display: flex !important;
+    gap: 4px;
+  }
+
+  .hamburger {
+    display: none !important;
+  }
+
+  .page-title {
+    font-size: 1.9rem;
+  }
+
+  /* Hero features - 2 colunas */
+  .hero-features {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 45px;
+  }
+
+  .feature-item {
+    padding: 24px 20px;
+  }
+
+  .feature-icon {
+    font-size: 2.4rem;
+  }
+
+  .feature-title {
+    font-size: 1.1rem;
+  }
+
+  .feature-desc {
+    font-size: 0.9rem;
+  }
+
+  /* Grids - 2-3 colunas */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .quick-actions {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  /* Forms */
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* Hero - lado a lado */
+  .hero-inner {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 36px;
+  }
+
+  .hero-visual {
+    display: block;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+  }
+
+  .hero-actions .btn {
+    width: auto;
+  }
+
+  .auth-card {
+    padding: 30px;
+  }
+}
+
+/* ============================================================
+   DESKTOP (1025px - 1439px)
+   ============================================================ */
+@media (min-width: 1025px) and (max-width: 1439px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container,
+  .page {
+    padding: 0 24px;
+    max-width: 100% !important;
+  }
+
+  .page {
+    padding: 36px 24px;
+  }
+
+  .navbar-inner {
+    padding: 0 24px;
+    max-width: 100% !important;
+  }
+
+  .navbar-links {
+    display: flex !important;
+  }
+
+  .hamburger {
+    display: none !important;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  /* Hero features - 3 colunas */
+  .hero-features {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+
+  .feature-item {
+    padding: 28px 24px;
+  }
+
+  .feature-icon {
+    font-size: 2.8rem;
+  }
+
+  .feature-title {
+    font-size: 1.15rem;
+  }
+
+  .feature-desc {
+    font-size: 0.95rem;
+  }
+
+  /* Grids - 3+ colunas */
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+  }
+
+  .quick-actions {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+  }
+
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+
+  /* Forms */
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-row.three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Hero */
+  .hero-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+
+  .hero-visual {
+    display: block;
+  }
+
+  .auth-card {
+    padding: 32px;
+  }
+}
+
+/* ============================================================
+   DESKTOP GRANDE (≥ 1440px)
+   ============================================================ */
+@media (min-width: 1440px) {
+  .container,
+  .page {
+    max-width: 1400px;
+    padding: 0 32px;
+  }
+
+  .navbar-inner {
+    max-width: 100% !important;
+    padding: 0 32px;
+  }
+
+  .page-title {
+    font-size: 2.3rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+  }
+
+  .servicos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+  }
+
+  .form-row.four {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Hero features - 3 colunas otimizadas */
+  .hero-features {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 60px;
+  }
+
+  .feature-item {
+    padding: 32px 28px;
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+  }
+
+  .feature-title {
+    font-size: 1.25rem;
+  }
+
+  .feature-desc {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================================
+   LANDSCAPE TABLET/DESKTOP (height 500px - 800px)
+   ============================================================ */
+@media (min-height: 500px) and (max-height: 800px) and (orientation: landscape) {
+  .hero-inner {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .hero-visual {
+    display: none !important;
+  }
+
+  .hero {
+    padding: 40px 20px 30px !important;
+  }
+
+  .hero-title {
+    font-size: 1.4rem !important;
+  }
+
+  .hero-actions {
+    flex-direction: row !important;
+    gap: 12px !important;
+  }
+
+  .hero-actions .btn {
+    padding: 8px 14px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* ============================================================
+   LANDSCAPE (pequenas alturas)
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    padding: 40px 20px;
+    min-height: auto;
+  }
+
+  .page {
+    padding: 16px 20px;
+  }
+
+  /* Em landscape, forçar hero em coluna única para caber */
+  .hero-inner {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .hero-visual {
+    display: none !important;
+  }
+
+  .hero-title {
+    font-size: 1.3rem !important;
+  }
+
+  h1 {
+    font-size: 1.2rem !important;
+  }
+
+  .hero-actions {
+    flex-direction: row !important;
+    gap: 10px !important;
+  }
+
+  .hero-actions .btn {
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+/* ============================================================
+   MUITO PEQUENO (< 360px)
+   ============================================================ */
+@media (max-width: 359px) {
+  .page {
+    padding: 14px 8px;
+  }
+
+  .container {
+    padding: 0 8px;
+  }
+}
+
+/* ============================================================
+   IMPRESSÃO
+   ============================================================ */
+@media print {
+  .navbar,
+  .mobile-menu,
+  .hamburger {
+    display: none !important;
+  }
+
+  .page {
+    padding: 0;
+  }
+
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+  }
+}
+
+/* ============================================================
+   ACESSIBILIDADE - Respeita preferências do usuário
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --border: #666;
+    --border-light: #888;
+  }
+}
