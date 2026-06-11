@@ -35,6 +35,10 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
   const hoje = getHojeISO();
   const isReagendamento = params.reagendar === '1';
 
+  // Verificar se o usuário logado é um barbeiro e obter seu ID
+  const usuarioEhBarbeiro = perfil?.tipo_usuario === 'barbeiro';
+  const idBarbeiroLogado = usuarioEhBarbeiro ? perfil?.id_usuario : null;
+
   useEffect(() => {
     carregarDados();
   }, []);
@@ -45,7 +49,16 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
       supabase.from('tb_barbeiro').select('*').order('nome_barbeiro'),
       supabase.from('tb_servico').select('*').order('tipo_servico'),
     ]);
-    setBarbeiros((bsData || []) as Barbeiro[]);
+    
+    let barbeirosList = (bsData || []) as Barbeiro[];
+    
+    // Regra de negócio: Barbeiro não pode agendar consigo mesmo
+    // Filtra o próprio barbeiro da lista se o usuário logado for um barbeiro
+    if (usuarioEhBarbeiro && idBarbeiroLogado) {
+      barbeirosList = barbeirosList.filter(b => b.id_barbeiro !== idBarbeiroLogado);
+    }
+    
+    setBarbeiros(barbeirosList);
     setServicos((svData || []) as Servico[]);
     setLoadingDados(false);
   }
@@ -298,7 +311,11 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
             <div className="card" style={{ marginBottom: 20 }}>
               <h3 className="card-title" style={{ marginBottom: 20 }}>1. Escolha o Barbeiro</h3>
               {barbeiros.length === 0 ? (
-                <div className="alert alert-warning">⚠️ Nenhum barbeiro disponível no momento.</div>
+                usuarioEhBarbeiro ? (
+                  <div className="alert alert-warning">⚠️ Não há outros barbeiros disponíveis para agendamento.</div>
+                ) : (
+                  <div className="alert alert-warning">⚠️ Nenhum barbeiro disponível no momento.</div>
+                )
               ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
                   {barbeiros.map(b => (
