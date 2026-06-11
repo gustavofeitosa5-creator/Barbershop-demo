@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase, Agendamento, formatarData, formatarHora, getHojeISO, formatarPreco } from '../lib/supabase';
+import { Calendar, Scissors, Clock, Briefcase, Plus, RefreshCw, Inbox, AlertTriangle } from 'lucide-react';
 
 interface DashboardPageProps {
   navigate: (to: string) => void;
@@ -101,22 +102,22 @@ export default function DashboardPage({ navigate }: DashboardPageProps) {
         </p>
       </div>
 
-      {erro && <div className="alert alert-error">❌ {erro}</div>}
+      {erro && <div className="alert alert-error"><AlertTriangle size={20} /> {erro}</div>}
 
       {/* Métricas */}
       <div className="metrics-grid">
         <div className="metric-card">
-          <div className="metric-icon">📅</div>
+          <div className="metric-icon"><Calendar size={28} /></div>
           <div className="metric-value">{loading ? '—' : metricas.totalAgendamentos}</div>
           <div className="metric-label">Agendamentos hoje</div>
         </div>
         <div className="metric-card">
-          <div className="metric-icon">✂️</div>
+          <div className="metric-icon"><Scissors size={28} /></div>
           <div className="metric-value">{loading ? '—' : metricas.barbeirosAtivos}</div>
           <div className="metric-label">Barbeiros cadastrados</div>
         </div>
         <div className="metric-card">
-          <div className="metric-icon">⏰</div>
+          <div className="metric-icon"><Clock size={28} /></div>
           <div className="metric-value" style={{ fontSize: '1.8rem' }}>
             {loading ? '—' : metricas.proximoHorario}
           </div>
@@ -131,19 +132,19 @@ export default function DashboardPage({ navigate }: DashboardPageProps) {
 
       <div className="quick-actions" style={{ marginBottom: 40 }}>
         <button className="quick-action-btn" onClick={() => navigate('admin-barbeiros')}>
-          <span className="action-icon">✂️</span>
+          <span className="action-icon"><Scissors size={24} /></span>
           <span className="action-label">Gerenciar Barbeiros</span>
         </button>
         <button className="quick-action-btn" onClick={() => navigate('admin-servicos')}>
-          <span className="action-icon">💼</span>
+          <span className="action-icon"><Briefcase size={24} /></span>
           <span className="action-label">Gerenciar Serviços</span>
         </button>
         <button className="quick-action-btn" onClick={() => navigate('admin-agendamentos')}>
-          <span className="action-icon">📋</span>
+          <span className="action-icon"><Calendar size={24} /></span>
           <span className="action-label">Ver Agendamentos</span>
         </button>
         <button className="quick-action-btn" onClick={() => navigate('agendar')}>
-          <span className="action-icon">➕</span>
+          <span className="action-icon"><Plus size={24} /></span>
           <span className="action-label">Novo Agendamento</span>
         </button>
       </div>
@@ -152,7 +153,7 @@ export default function DashboardPage({ navigate }: DashboardPageProps) {
       <div className="section-header">
         <h2 className="section-title">Agendamentos de Hoje</h2>
         <button className="btn btn-secondary btn-sm" onClick={carregarDados}>
-          🔄 Atualizar
+          <RefreshCw size={16} style={{ marginRight: 4 }} /> Atualizar
         </button>
       </div>
 
@@ -167,7 +168,7 @@ export default function DashboardPage({ navigate }: DashboardPageProps) {
           background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)',
           color: 'var(--text-secondary)'
         }}>
-          <div style={{ fontSize: '3rem', marginBottom: 16 }}>📭</div>
+          <div style={{ fontSize: '3rem', marginBottom: 16, display: 'flex', justifyContent: 'center' }}><Inbox size={48} /></div>
           <p>Nenhum agendamento para hoje.</p>
         </div>
       ) : (

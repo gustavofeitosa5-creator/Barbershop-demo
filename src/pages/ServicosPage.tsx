@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase, Servico, formatarPreco, formatarDuracao } from '../lib/supabase';
+import { Scissors, Briefcase, Shirt, Sparkles, AlertTriangle, CheckCircle, X, Clock, Pencil, Trash2, Save, Plus, Wallet } from 'lucide-react';
 
 interface ServicosPageProps {
   navigate: (to: string) => void;
   adminMode?: boolean;
 }
 
-const ICONES_SERVICO = ['✂️', '🪒', '💈', '👔', '🧖', '💇', '🎨', '✨'];
+const ICONES_SERVICO = [Scissors, Scissors, Briefcase, Shirt, Sparkles, Sparkles, Sparkles, Sparkles];
 
-function getIcone(index: number): string {
-  return ICONES_SERVICO[index % ICONES_SERVICO.length];
+function getIconeComponent(index: number) {
+  const IconComponent = ICONES_SERVICO[index % ICONES_SERVICO.length];
+  return <IconComponent size={32} strokeWidth={1.5} />;
 }
 
 export default function ServicosPage({ navigate, adminMode = false }: ServicosPageProps) {
@@ -185,25 +187,25 @@ export default function ServicosPage({ navigate, adminMode = false }: ServicosPa
         </div>
         {showAdminControls && (
           <button className="btn btn-primary" onClick={() => { setShowForm(!showForm); setFormErro(''); }}>
-            {showForm ? '✕ Cancelar' : '+ Novo Serviço'}
+            {showForm ? <><X size={18} /> Cancelar</> : <><Plus size={18} /> Novo Serviço</>}
           </button>
         )}
       </div>
 
       {erro && (
         <div className="alert alert-error">
-          ❌ {erro}
-          <button style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--error)' }} onClick={() => setErro('')}>✕</button>
+          <AlertTriangle size={20} /> {erro}
+          <button style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--error)' }} onClick={() => setErro('')}><X size={18} /></button>
         </div>
       )}
-      {sucesso && <div className="alert alert-success">✅ {sucesso}</div>}
+      {sucesso && <div className="alert alert-success"><CheckCircle size={20} /> {sucesso}</div>}
 
       {/* Formulário de cadastro */}
       {showAdminControls && showForm && (
         <div className="card" style={{ marginBottom: 32 }}>
           <h3 className="card-title" style={{ marginBottom: 20 }}>Novo Serviço</h3>
           <form onSubmit={handleCadastrar} noValidate>
-            {formErro && <div className="alert alert-error">❌ {formErro}</div>}
+            {formErro && <div className="alert alert-error"><AlertTriangle size={20} /> {formErro}</div>}
             <div className="form-row">
               <div className="form-group">
                 <label className="form-label">Nome do serviço <span className="required">*</span></label>
@@ -278,7 +280,7 @@ export default function ServicosPage({ navigate, adminMode = false }: ServicosPa
           background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)',
           color: 'var(--text-secondary)'
         }}>
-          <div style={{ fontSize: '4rem', marginBottom: 16 }}>💼</div>
+          <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'center' }}><Briefcase size={64} strokeWidth={1.5} /></div>
           <h3 style={{ fontFamily: 'var(--font-serif)', marginBottom: 8 }}>Nenhum serviço cadastrado</h3>
           <p>{showAdminControls ? 'Clique em "+ Novo Serviço" para começar.' : 'Em breve nossos serviços estarão disponíveis.'}</p>
         </div>
@@ -286,7 +288,7 @@ export default function ServicosPage({ navigate, adminMode = false }: ServicosPa
         <div className="servicos-grid">
           {servicos.map((s, idx) => (
             <div key={s.id_servico} className="servico-card">
-              <div className="servico-icon">{getIcone(idx)}</div>
+              <div className="servico-icon">{getIconeComponent(idx)}</div>
               <h3 className="servico-nome">{s.tipo_servico}</h3>
               {s.descricao_servico && (
                 <p className="servico-desc">{s.descricao_servico}</p>
@@ -294,7 +296,7 @@ export default function ServicosPage({ navigate, adminMode = false }: ServicosPa
               <div className="servico-meta">
                 <span className="servico-preco">{formatarPreco(s.preco_servico)}</span>
                 <span className="servico-duracao">
-                  ⏱ {formatarDuracao(s.duracao_servico)}
+                  <Clock size={16} style={{ marginRight: 4, verticalAlign: 'middle' }} />{formatarDuracao(s.duracao_servico)}
                 </span>
               </div>
 
@@ -305,13 +307,13 @@ export default function ServicosPage({ navigate, adminMode = false }: ServicosPa
                     className="btn btn-secondary btn-sm"
                     onClick={() => editando === s.id_servico ? setEditando(null) : iniciarEdicao(s)}
                   >
-                    {editando === s.id_servico ? 'Cancelar' : '✏️ Editar'}
+                    {editando === s.id_servico ? <><X size={16} /> Cancelar</> : <><Pencil size={16} /> Editar</>}
                   </button>
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => handleExcluir(s.id_servico)}
                   >
-                    🗑️ Excluir
+                    <Trash2 size={16} /> Excluir
                   </button>
                 </div>
               )}
@@ -323,7 +325,7 @@ export default function ServicosPage({ navigate, adminMode = false }: ServicosPa
                     Editar Serviço
                   </h4>
                   <form onSubmit={handleEditar} noValidate>
-                    {editErro && <div className="alert alert-error" style={{ marginBottom: 12 }}>❌ {editErro}</div>}
+                    {editErro && <div className="alert alert-error" style={{ marginBottom: 12 }}><AlertTriangle size={20} /> {editErro}</div>}
                     <div className="form-group">
                       <label className="form-label">Nome <span className="required">*</span></label>
                       <input
@@ -368,7 +370,7 @@ export default function ServicosPage({ navigate, adminMode = false }: ServicosPa
                       </div>
                     </div>
                     <button type="submit" className="btn btn-primary btn-sm" disabled={editLoading}>
-                      {editLoading ? <><span className="spinner-sm"></span> Salvando...</> : '💾 Salvar'}
+                      {editLoading ? <><span className="spinner-sm"></span> Salvando...</> : <><Save size={16} style={{ marginRight: 4 }} /> Salvar</>}
                     </button>
                   </form>
                 </div>

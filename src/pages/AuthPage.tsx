@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { formatarTelefone, validarTelefone, extrairDigitos } from '../utils/phone';
+import { Scissors, AlertTriangle, CheckCircle } from 'lucide-react';
 
 interface AuthPageProps {
   navigate: (to: string) => void;
@@ -112,13 +113,16 @@ export default function AuthPage({ navigate, mensagem }: AuthPageProps) {
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-logo">
-          <h1>✂️ BarberSync</h1>
+          <h1 style={{ display: 'flex', alignItems: 'center', gap: 12, justifyContent: 'center' }}>
+            <Scissors size={32} /> BarberSync
+          </h1>
           <p>Sistema de Agendamento para Barbearia</p>
         </div>
 
         {mensagem && (
           <div className="alert alert-warning" style={{ marginBottom: 20 }}>
-            ⚠️ {mensagem}
+            <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+            {mensagem}
           </div>
         )}
 
@@ -141,8 +145,18 @@ export default function AuthPage({ navigate, mensagem }: AuthPageProps) {
           {/* =============== LOGIN =============== */}
           {aba === 'login' && !showRecuperar && (
             <form onSubmit={handleLogin} noValidate>
-              {loginErro && <div className="alert alert-error">❌ {loginErro}</div>}
-              {loginSucesso && <div className="alert alert-success">✅ {loginSucesso}</div>}
+              {loginErro && (
+                <div className="alert alert-error">
+                  <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+                  {loginErro}
+                </div>
+              )}
+              {loginSucesso && (
+                <div className="alert alert-success">
+                  <CheckCircle size={18} style={{ flexShrink: 0 }} />
+                  {loginSucesso}
+                </div>
+              )}
 
               <div className="form-group">
                 <label className="form-label">
@@ -219,7 +233,12 @@ export default function AuthPage({ navigate, mensagem }: AuthPageProps) {
 
               {recMensagem && (
                 <div className={`alert ${recMensagem.startsWith('Erro') ? 'alert-error' : 'alert-success'}`}>
-                  {recMensagem.startsWith('Erro') ? '❌' : '✅'} {recMensagem}
+                  {recMensagem.startsWith('Erro') ? (
+                    <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+                  ) : (
+                    <CheckCircle size={18} style={{ flexShrink: 0 }} />
+                  )}
+                  {recMensagem}
                 </div>
               )}
 
@@ -253,7 +272,12 @@ export default function AuthPage({ navigate, mensagem }: AuthPageProps) {
           {/* =============== CADASTRO =============== */}
           {aba === 'cadastro' && (
             <form onSubmit={handleCadastro} noValidate>
-              {cadErro && <div className="alert alert-error">❌ {cadErro}</div>}
+              {cadErro && (
+                <div className="alert alert-error">
+                  <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+                  {cadErro}
+                </div>
+              )}
 
               <div className="form-group">
                 <label className="form-label">Nome completo <span className="required">*</span></label>
