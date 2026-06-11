@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase, Agendamento, Indisponibilidade, formatarData, formatarHora, formatarPreco, getHojeISO } from '../lib/supabase';
+import { Calendar, CheckCircle, X, AlertTriangle, Trash2, Clock, Scissors, User, Plus } from 'lucide-react';
 
 interface BarbeiroDashboardPageProps {
   navigate: (to: string) => void;
@@ -242,11 +243,11 @@ export default function BarbeiroDashboardPage({ navigate }: BarbeiroDashboardPag
   return (
     <div className="page">
       <div style={{ marginBottom: 28 }}>
-        <h1 className="page-title">📋 Meus Agendamentos</h1>
+        <h1 className="page-title"><Calendar size={28} style={{ marginRight: 8, verticalAlign: 'middle' }} /> Meus Agendamentos</h1>
         <p style={{ color: 'var(--text-secondary)' }}>Gerencie seus agendamentos e disponibilidade</p>
       </div>
 
-      {erro && <div className="alert alert-error">❌ {erro}</div>}
+      {erro && <div className="alert alert-error"><AlertTriangle size={20} /> {erro}</div>}
 
       {/* Tabs */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 28, borderBottom: '1px solid var(--border-color)', paddingBottom: 16 }}>
@@ -263,7 +264,7 @@ export default function BarbeiroDashboardPage({ navigate }: BarbeiroDashboardPag
             fontSize: '0.95rem'
           }}
         >
-          ⏳ Pendentes
+          <Clock size={18} style={{ marginRight: 4, verticalAlign: 'middle' }} /> Pendentes
         </button>
         <button
           onClick={() => setFiltro('confirmado')}
@@ -278,7 +279,7 @@ export default function BarbeiroDashboardPage({ navigate }: BarbeiroDashboardPag
             fontSize: '0.95rem'
           }}
         >
-          ✅ Confirmados
+          <CheckCircle size={18} style={{ marginRight: 4, verticalAlign: 'middle' }} /> Confirmados
         </button>
         <button
           onClick={() => setFiltro('todos')}
@@ -293,7 +294,7 @@ export default function BarbeiroDashboardPage({ navigate }: BarbeiroDashboardPag
             fontSize: '0.95rem'
           }}
         >
-          📋 Todos
+          <Calendar size={18} style={{ marginRight: 4, verticalAlign: 'middle' }} /> Todos
         </button>
       </div>
 
@@ -331,9 +332,9 @@ export default function BarbeiroDashboardPage({ navigate }: BarbeiroDashboardPag
                               : '#dc3545',
                       }}
                     >
-                      {ag.status_agendamento === 'pendente' && '⏳ Pendente'}
-                      {ag.status_agendamento === 'confirmado' && '✅ Confirmado'}
-                      {ag.status_agendamento === 'cancelado' && '❌ Cancelado'}
+                      {ag.status_agendamento === 'pendente' && <><Clock size={16} style={{ marginRight: 4 }} /> Pendente</>}
+                      {ag.status_agendamento === 'confirmado' && <><CheckCircle size={16} style={{ marginRight: 4 }} /> Confirmado</>}
+                      {ag.status_agendamento === 'cancelado' && <><X size={16} style={{ marginRight: 4 }} /> Cancelado</>}
                     </span>
                   </div>
                 </div>
@@ -371,13 +372,13 @@ export default function BarbeiroDashboardPage({ navigate }: BarbeiroDashboardPag
                       className="btn btn-success btn-sm"
                       onClick={() => handleConfirmar(ag.id_agendamento)}
                     >
-                      ✅ Confirmar
+                      <CheckCircle size={16} style={{ marginRight: 4 }} /> Confirmar
                     </button>
                     <button
                       className="btn btn-danger btn-sm"
                       onClick={() => handleCancelar(ag.id_agendamento)}
                     >
-                      ❌ Cancelar
+                      <X size={16} style={{ marginRight: 4 }} /> Cancelar
                     </button>
                   </div>
                 )}
@@ -389,11 +390,11 @@ export default function BarbeiroDashboardPage({ navigate }: BarbeiroDashboardPag
 
       {/* Seção Bloqueios */}
       <div>
-        <h2 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: 20 }}>🚫 Bloquear Disponibilidade</h2>
+        <h2 style={{ fontSize: '1.2rem', fontWeight: 600, marginBottom: 20 }}><Ban size={20} style={{ marginRight: 8, verticalAlign: 'middle' }} /> Bloquear Disponibilidade</h2>
         
         <div className="card" style={{ padding: 20, marginBottom: 20 }}>
-          {erroForm && <div className="alert alert-error">❌ {erroForm}</div>}
-          {sucessoForm && <div className="alert alert-success">✅ {sucessoForm}</div>}
+          {erroForm && <div className="alert alert-error"><AlertTriangle size={20} /> {erroForm}</div>}
+          {sucessoForm && <div className="alert alert-success"><CheckCircle size={20} /> {sucessoForm}</div>}
           
           <form onSubmit={handleAdicionarBloqueio} noValidate>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
@@ -476,7 +477,7 @@ export default function BarbeiroDashboardPage({ navigate }: BarbeiroDashboardPag
                     className="btn btn-danger btn-sm"
                     onClick={() => handleRemoverBloqueio(bl.id_indisponibilidade)}
                   >
-                    🗑️ Remover
+                    <Trash2 size={16} style={{ marginRight: 4 }} /> Remover
                   </button>
                 </div>
               ))}
