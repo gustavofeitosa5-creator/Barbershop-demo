@@ -124,7 +124,7 @@ function AppInner() {
 
   return (
     <div className="app-wrapper">
-      {showNavbar && <Navbar navigate={navigate} />}
+      {showNavbar && <Navbar navigate={navigate} goBack={goBack} />}
       <main className={showNavbar ? 'with-navbar' : ''}>
         {renderPage()}
       </main>
