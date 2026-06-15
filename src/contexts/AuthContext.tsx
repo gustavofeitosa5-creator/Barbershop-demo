@@ -11,6 +11,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   recuperarSenha: (email: string) => Promise<{ error: string | null }>;
   atualizarPerfil: () => Promise<void>;
+  atualizarPerfilInfo: (nome: string, telefone?: string) => Promise<{ error: string | null }>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -132,9 +133,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function recuperarSenha(email: string): Promise<{ error: string | null }> {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + '/auth',
+      redirectTo: window.location.origin + '/#auth',
     });
     if (error) return { error: error.message };
+    return { error: null };
+  }
+
+  async function atualizarPerfilInfo(nome: string, telefone?: string): Promise<{ error: string | null }> {
+    if (!user) return { error: 'Usuário não autenticado.' };
+
+    const emailTrimmed = user.email?.toLowerCase().trim();
+    if (!emailTrimmed) return { error: 'E-mail do usuário não disponível.' };
+
+    const { error } = await supabase
+      .from('tb_usuario')
+      .update({
+        nome_usuario: nome,
+        telefone_usuario: telefone?.trim() || null,
+      })
+      .eq('email_usuario', emailTrimmed);
+
+    if (error) return { error: error.message };
+
+    await atualizarPerfil();
     return { error: null };
   }
 
@@ -146,7 +167,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, perfil, loading, login, cadastro, logout, recuperarSenha, atualizarPerfil }}>
+    <AuthContext.Provider value={{ user, perfil, loading, login, cadastro, logout, recuperarSenha, atualizarPerfil, atualizarPerfilInfo }}>
       {children}
     </AuthContext.Provider>
   );

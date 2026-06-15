@@ -10,8 +10,8 @@ import BarbeiroDashboardPage from './pages/BarbeiroDashboardPage';
 import HistoricoPage from './pages/HistoricoPage';
 import IndexPage from './pages/IndexPage';
 import NotFoundPage from './pages/NotFoundPage';
+import PerfilPage from './pages/PerfilPage';
 import Navbar from './components/Navbar';
-import SetupBanner from './components/SetupBanner';
 
 
 function AppInner() {
@@ -45,9 +45,12 @@ function AppInner() {
 
   useEffect(() => {
     if (!loading) {
-      const hash = window.location.hash.replace('#', '') || 'index';
-      setPage(hash);
-      pageHistoryRef.current = [hash];
+      const rawHash = window.location.hash.replace('#', '');
+      const hashPage = rawHash ? rawHash.split('?')[0] : '';
+      const pathPage = window.location.pathname.replace(/\/$/, '');
+      const initialPage = hashPage || (pathPage === '/auth' ? 'auth' : 'index');
+      setPage(initialPage);
+      pageHistoryRef.current = [initialPage];
     }
   }, [loading]);
 
@@ -65,7 +68,7 @@ function AppInner() {
   }
 
   // Route guards
-  const rotasProtegidas = ['agendar', 'historico', 'dashboard', 'admin-agendamentos', 'admin-barbeiros', 'admin-servicos', 'barbeiro-dashboard'];
+  const rotasProtegidas = ['perfil', 'agendar', 'historico', 'dashboard', 'admin-agendamentos', 'admin-barbeiros', 'admin-servicos', 'barbeiro-dashboard'];
   const rotasAdmin = ['dashboard', 'admin-agendamentos', 'admin-barbeiros', 'admin-servicos'];
   const rotasBarbeiro = ['barbeiro-dashboard'];
 
@@ -101,6 +104,8 @@ function AppInner() {
         return <AuthPage navigate={navigate} />;
       case 'dashboard':
         return <DashboardPage navigate={navigate} />;
+      case 'perfil':
+        return <PerfilPage navigate={navigate} />;
       case 'servicos':
         return <ServicosPage navigate={navigate} />;
       case 'agendar':
@@ -124,11 +129,11 @@ function AppInner() {
 
   return (
     <div className="app-wrapper">
-      {showNavbar && <Navbar navigate={navigate} />}
+      {showNavbar && <Navbar navigate={navigate} goBack={page !== 'index' ? goBack : undefined} />}
       <main className={showNavbar ? 'with-navbar' : ''}>
         {renderPage()}
       </main>
-      <SetupBanner />
+      {/* Setup banner removed to avoid showing configuration hints in production */}
     </div>
   );
 }
