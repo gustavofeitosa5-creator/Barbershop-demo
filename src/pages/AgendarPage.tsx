@@ -4,6 +4,7 @@ import {
   supabase, Barbeiro, Servico,
   formatarPreco, formatarDuracao, getHojeISO, HORARIOS_FUNCIONAMENTO
 } from '../lib/supabase';
+import { Calendar, Clock, AlertTriangle, Info, CheckCircle, RotateCcw, Scissors, DollarSign } from 'lucide-react';
 
 interface AgendarPageProps {
   navigate: (to: string, params?: Record<string, string>) => void;
@@ -35,6 +36,10 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
   const hoje = getHojeISO();
   const isReagendamento = params.reagendar === '1';
 
+  // Verificar se o usuário logado é um barbeiro e obter seu ID
+  const usuarioEhBarbeiro = perfil?.tipo_usuario === 'barbeiro';
+  const idBarbeiroLogado = usuarioEhBarbeiro ? perfil?.id_usuario : null;
+
   useEffect(() => {
     carregarDados();
   }, []);
@@ -45,7 +50,16 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
       supabase.from('tb_barbeiro').select('*').order('nome_barbeiro'),
       supabase.from('tb_servico').select('*').order('tipo_servico'),
     ]);
-    setBarbeiros((bsData || []) as Barbeiro[]);
+    
+    let barbeirosList = (bsData || []) as Barbeiro[];
+    
+    // Regra de negócio: Barbeiro não pode agendar consigo mesmo
+    // Filtra o próprio barbeiro da lista se o usuário logado for um barbeiro
+    if (usuarioEhBarbeiro && idBarbeiroLogado) {
+      barbeirosList = barbeirosList.filter(b => b.id_barbeiro !== idBarbeiroLogado);
+    }
+    
+    setBarbeiros(barbeirosList);
     setServicos((svData || []) as Servico[]);
     setLoadingDados(false);
   }
@@ -276,7 +290,15 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
     <div className="page">
       <div style={{ marginBottom: 28 }}>
         <h1 className="page-title">
-          {isReagendamento ? '🔄 Reagendar' : '📅 Fazer Agendamento'}
+          {isReagendamento ? (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <RotateCcw size={24} /> Reagendar
+            </span>
+          ) : (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <Calendar size={24} /> Fazer Agendamento
+            </span>
+          )}
         </h1>
         <p className="page-subtitle">
           Olá, {perfil?.nome_usuario?.split(' ')[0]}! Escolha o barbeiro, serviço, data e horário.
@@ -285,7 +307,8 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
 
       {erro && (
         <div className="alert alert-error">
-          ❌ {erro}
+          <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+          {erro}
           <button style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--error)' }} onClick={() => setErro('')}>✕</button>
         </div>
       )}
@@ -298,7 +321,17 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
             <div className="card" style={{ marginBottom: 20 }}>
               <h3 className="card-title" style={{ marginBottom: 20 }}>1. Escolha o Barbeiro</h3>
               {barbeiros.length === 0 ? (
-                <div className="alert alert-warning">⚠️ Nenhum barbeiro disponível no momento.</div>
+                usuarioEhBarbeiro ? (
+                  <div className="alert alert-warning">
+                    <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+                    Não há outros barbeiros disponíveis para agendamento.
+                  </div>
+                ) : (
+                  <div className="alert alert-warning">
+                    <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+                    Nenhum barbeiro disponível no momento.
+                  </div>
+                )
               ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
                   {barbeiros.map(b => (
@@ -341,7 +374,10 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
               <h3 className="card-title" style={{ marginBottom: 4 }}>2. Selecione os Serviços</h3>
               <p className="form-hint" style={{ marginBottom: 16 }}>Você pode selecionar mais de um serviço.</p>
               {servicos.length === 0 ? (
-                <div className="alert alert-warning">⚠️ Nenhum serviço disponível.</div>
+                <div className="alert alert-warning">
+                  <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+                  Nenhum serviço disponível.
+                </div>
               ) : (
                 <div className="checkbox-group">
                   {servicos.map(s => (
@@ -359,7 +395,9 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
                           </span>
                         )}
                         <span style={{ float: 'right', display: 'flex', gap: 8, alignItems: 'center' }}>
-                          <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>⏱ {formatarDuracao(s.duracao_servico)}</span>
+                          <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 4 }}>
+                            <Clock size={12} /> {formatarDuracao(s.duracao_servico)}
+                          </span>
                           <span className="price-tag">{formatarPreco(s.preco_servico)}</span>
                         </span>
                       </label>
@@ -378,9 +416,12 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
                   className="form-control"
                   value={data}
                   min={hoje}
-                  onChange={e => setData(e.target.value)}
+                  onChange={e => setData(e.target.value.slice(0, 10))}
                   required
                   style={{ maxWidth: 260 }}
+                  maxLength={10}
+                  pattern="\d{4}-\d{2}-\d{2}"
+                  title="Formato de data: YYYY-MM-DD"
                 />
               </div>
             </div>
@@ -390,8 +431,9 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
               <h3 className="card-title" style={{ marginBottom: 8 }}>4. Escolha o Horário</h3>
 
               {!barbeiroId || !data ? (
-                <p className="text-secondary" style={{ fontSize: '0.88rem' }}>
-                  ℹ️ Selecione um barbeiro e uma data para ver os horários disponíveis.
+                <p className="text-secondary" style={{ fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <Info size={16} style={{ flexShrink: 0 }} />
+                  Selecione um barbeiro e uma data para ver os horários disponíveis.
                 </p>
               ) : loadingHorarios ? (
                 <div className="horarios-loading">
@@ -400,7 +442,8 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
                 </div>
               ) : horariosCarregados && horariosDisponiveis.length === 0 ? (
                 <div className="alert alert-warning">
-                  ⚠️ Nenhum horário disponível para esta data. Tente outra data ou barbeiro.
+                  <AlertTriangle size={18} style={{ flexShrink: 0 }} />
+                  Nenhum horário disponível para esta data. Tente outra data ou barbeiro.
                 </div>
               ) : horariosCarregados ? (
                 <div className="horarios-grid">
@@ -430,7 +473,13 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
                 className="btn btn-primary btn-lg"
                 disabled={loading || !barbeiroId || !data || !horarioSelecionado || servicosSelecionados.length === 0}
               >
-                {loading ? <><span className="spinner-sm"></span> Confirmando...</> : '✅ Confirmar Agendamento'}
+                {loading ? (
+                  <><span className="spinner-sm"></span> Confirmando...</>
+                ) : (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <CheckCircle size={20} /> Confirmar Agendamento
+                  </span>
+                )}
               </button>
               <button
                 type="button"
@@ -444,10 +493,14 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
 
           {/* Coluna resumo */}
           <div className="resumo-card">
-            <h3>📋 Resumo</h3>
+            <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Scissors size={20} /> Resumo
+            </h3>
 
             <div className="resumo-item">
-              <span className="resumo-icon">✂️</span>
+              <span className="resumo-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Scissors size={18} />
+              </span>
               <div>
                 <span className="resumo-label">Barbeiro</span>
                 <span className="resumo-value">
@@ -457,7 +510,9 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
             </div>
 
             <div className="resumo-item">
-              <span className="resumo-icon">📅</span>
+              <span className="resumo-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Calendar size={18} />
+              </span>
               <div>
                 <span className="resumo-label">Data</span>
                 <span className="resumo-value">
@@ -467,7 +522,9 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
             </div>
 
             <div className="resumo-item">
-              <span className="resumo-icon">⏰</span>
+              <span className="resumo-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Clock size={18} />
+              </span>
               <div>
                 <span className="resumo-label">Horário</span>
                 <span className="resumo-value">
@@ -478,7 +535,9 @@ export default function AgendarPage({ navigate, params = {} }: AgendarPageProps)
 
             {servicosEscolhidos.length > 0 && (
               <div className="resumo-item">
-                <span className="resumo-icon">💼</span>
+                <span className="resumo-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <DollarSign size={18} />
+                </span>
                 <div>
                   <span className="resumo-label">Serviços</span>
                   <div>

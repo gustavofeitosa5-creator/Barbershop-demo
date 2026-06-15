@@ -975,9 +975,26 @@ tbody tr:hover {
 }
 
 .forgot-link {
-  float: right;
-  font-size: 0.82rem;
-  margin-top: -2px;
+  font-size: 0.88rem;
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-text {
+  background: transparent;
+  color: var(--color-primary);
+  border: none;
+  padding: 0;
+  font-size: 0.88rem;
+  text-decoration: underline;
+}
+
+.btn-text:hover {
+  opacity: 0.8;
 }
 
 /* ============================================================
